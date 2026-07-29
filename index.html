@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STYLE LAB — AI 穿搭灵感实验室</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <span class="logo-mark">SL</span>
+    <span class="logo-text">STYLE LAB</span>
+  </div>
+  <div class="nav-links">
+    <a href="#matcher" class="nav-link active" data-section="matcher">风格匹配</a>
+    <a href="#colorlab" class="nav-link" data-section="colorlab">色彩实验</a>
+    <a href="#caption" class="nav-link" data-section="caption">OOTD文案</a>
+    <a href="#trends" class="nav-link" data-section="trends">趋势看板</a>
+  </div>
+  <button id="menu-toggle" aria-label="菜单">&#9776;</button>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">VIBE CODING × FASHION</p>
+    <h1 class="hero-title">穿<span class="italic">搭</span>灵感<br>实验室</h1>
+    <p class="hero-sub">AI 驱动的时尚穿搭工具集 — 找到你的风格，玩转色彩，生成文案，追踪趋势</p>
+    <a href="#matcher" class="hero-cta">开始探索 &rarr;</a>
+  </div>
+  <div class="hero-scroll">向下滚动</div>
+</header>
+
+<!-- ============ SECTION 1: STYLE MATCHER ============ -->
+<section id="matcher" class="section">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">穿搭风格匹配器</h2>
+    <p class="section-desc">选择你的心情、场合与季节，AI 为你匹配专属穿搭风格</p>
+  </div>
+
+  <div class="matcher-container">
+    <!-- Step indicators -->
+    <div class="step-bar">
+      <div class="step-item active" data-step="1"><span class="step-dot">1</span> 心情</div>
+      <div class="step-line"></div>
+      <div class="step-item" data-step="2"><span class="step-dot">2</span> 场合</div>
+      <div class="step-line"></div>
+      <div class="step-item" data-step="3"><span class="step-dot">3</span> 季节</div>
+    </div>
+
+    <!-- Step 1: Mood -->
+    <div class="matcher-step" id="step-mood" data-step-content="1">
+      <h3 class="step-question">今天的心情是？</h3>
+      <div class="option-grid">
+        <button class="option-card" data-category="mood" data-value="energetic">
+          <span class="option-emoji">&#9889;</span>
+          <span class="option-label">元气满满</span>
+        </button>
+        <button class="option-card" data-category="mood" data-value="calm">
+          <span class="option-emoji">&#127793;</span>
+          <span class="option-label">慵懒松弛</span>
+        </button>
+        <button class="option-card" data-category="mood" data-value="bold">
+          <span class="option-emoji">&#128293;</span>
+          <span class="option-label">大胆张扬</span>
+        </button>
+        <button class="option-card" data-category="mood" data-value="elegant">
+          <span class="option-emoji">&#128081;</span>
+          <span class="option-label">优雅从容</span>
+        </button>
+        <button class="option-card" data-category="mood" data-value="playful">
+          <span class="option-emoji">&#127881;</span>
+          <span class="option-label">俏皮活泼</span>
+        </button>
+        <button class="option-card" data-category="mood" data-value="mysterious">
+          <span class="option-emoji">&#127769;</span>
+          <span class="option-label">神秘冷感</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Occasion -->
+    <div class="matcher-step hidden" id="step-occasion" data-step-content="2">
+      <h3 class="step-question">今天的场合是？</h3>
+      <div class="option-grid">
+        <button class="option-card" data-category="occasion" data-value="casual">
+          <span class="option-emoji">&#9749;</span>
+          <span class="option-label">日常通勤</span>
+        </button>
+        <button class="option-card" data-category="occasion" data-value="date">
+          <span class="option-emoji">&#127873;</span>
+          <span class="option-label">约会出行</span>
+        </button>
+        <button class="option-card" data-category="occasion" data-value="party">
+          <span class="option-emoji">&#127881;</span>
+          <span class="option-label">派对聚会</span>
+        </button>
+        <button class="option-card" data-category="occasion" data-value="work">
+          <span class="option-emoji">&#128188;</span>
+          <span class="option-label">商务职场</span>
+        </button>
+        <button class="option-card" data-category="occasion" data-value="travel">
+          <span class="option-emoji">&#9992;</span>
+          <span class="option-label">旅行度假</span>
+        </button>
+        <button class="option-card" data-category="occasion" data-value="street">
+          <span class="option-emoji">&#127939;</span>
+          <span class="option-label">街拍出片</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 3: Season -->
+    <div class="matcher-step hidden" id="step-season" data-step-content="3">
+      <h3 class="step-question">现在是什么季节？</h3>
+      <div class="option-grid">
+        <button class="option-card" data-category="season" data-value="spring">
+          <span class="option-emoji">&#127800;</span>
+          <span class="option-label">春</span>
+        </button>
+        <button class="option-card" data-category="season" data-value="summer">
+          <span class="option-emoji">&#9728;</span>
+          <span class="option-label">夏</span>
+        </button>
+        <button class="option-card" data-category="season" data-value="autumn">
+          <span class="option-emoji">&#127810;</span>
+          <span class="option-label">秋</span>
+        </button>
+        <button class="option-card" data-category="season" data-value="winter">
+          <span class="option-emoji">&#10052;</span>
+          <span class="option-label">冬</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="matcher-result hidden" id="matcher-result">
+      <div class="result-card">
+        <div class="result-header">
+          <span class="result-label">你的穿搭风格</span>
+          <h3 class="result-title" id="result-style-name">—</h3>
+        </div>
+        <p class="result-desc" id="result-style-desc">—</p>
+        <div class="result-palette" id="result-palette">
+          <h4>推荐配色</h4>
+          <div class="palette-swatches" id="palette-swatches"></div>
+        </div>
+        <div class="result-keywords" id="result-keywords">
+          <h4>风格关键词</h4>
+          <div class="keyword-tags" id="keyword-tags"></div>
+        </div>
+        <div class="result-outfit" id="result-outfit">
+          <h4>穿搭建议</h4>
+          <ul class="outfit-list" id="outfit-list"></ul>
+        </div>
+        <button class="btn-restart" id="btn-restart">重新测试</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2: COLOR LAB ============ -->
+<section id="colorlab" class="section section-alt">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">色彩搭配实验室</h2>
+    <p class="section-desc">选择主色调，自动生成和谐穿搭配色方案</p>
+  </div>
+
+  <div class="colorlab-container">
+    <div class="colorlab-left">
+      <h3>选择你的主色调</h3>
+      <div class="color-picker-grid" id="color-picker-grid">
+        <!-- Generated by JS -->
+      </div>
+      <div class="harmony-selector">
+        <label>配色方案：</label>
+        <select id="harmony-type">
+          <option value="complementary">互补色</option>
+          <option value="analogous" selected>邻近色</option>
+          <option value="triadic">三角色</option>
+          <option value="monochrome">同色系</option>
+        </select>
+      </div>
+    </div>
+    <div class="colorlab-right">
+      <div class="palette-display" id="palette-display">
+        <!-- Generated by JS -->
+      </div>
+      <div class="palette-info" id="palette-info">
+        <p class="palette-hint">点击左侧色块开始实验</p>
+      </div>
+      <div class="outfit-preview" id="outfit-preview">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3: CAPTION STUDIO ============ -->
+<section id="caption" class="section">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">OOTD 文案工坊</h2>
+    <p class="section-desc">一键生成社交媒体穿搭文案，支持多平台风格</p>
+  </div>
+
+  <div class="caption-container">
+    <div class="caption-controls">
+      <div class="control-group">
+        <label>穿搭单品</label>
+        <input type="text" id="cap-item" placeholder="如：oversized卫衣 + 工装裤" maxlength="60">
+      </div>
+      <div class="control-group">
+        <label>穿搭风格</label>
+        <select id="cap-style">
+          <option value="street">街头潮酷</option>
+          <option value="minimal">极简主义</option>
+          <option value="vintage">复古文艺</option>
+          <option value="casual">休闲日常</option>
+          <option value="formal">正式商务</option>
+          <option value="y2k">Y2K千禧</option>
+          <option value="gorpcore">户外机能</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>发布平台</label>
+        <select id="cap-platform">
+          <option value="xiaohongshu">小红书</option>
+          <option value="douyin">抖音</option>
+          <option value="instagram">Instagram</option>
+          <option value="weibo">微博</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>心情关键词</label>
+        <input type="text" id="cap-mood" placeholder="如：松弛、自信、随性" maxlength="30">
+      </div>
+      <button class="btn-generate" id="btn-generate-caption">生成文案</button>
+    </div>
+    <div class="caption-output" id="caption-output">
+      <div class="caption-placeholder">
+        <p>填入穿搭信息，生成专属文案</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4: TREND BOARD ============ -->
+<section id="trends" class="section section-alt">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">趋势风向标</h2>
+    <p class="section-desc">2026 时下热门穿搭趋势一览</p>
+  </div>
+
+  <div class="trends-grid" id="trends-grid">
+    <!-- Generated by JS -->
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="logo-mark">SL</span>
+      <span>STYLE LAB</span>
+    </div>
+    <p class="footer-tagline">Vibe Coding × Fashion — 用代码玩转时尚</p>
+    <p class="footer-copy">Made with &#9829; by 杨龙 | GitHub: 匡申巴旺</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
