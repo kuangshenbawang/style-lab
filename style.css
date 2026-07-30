@@ -1031,3 +1031,188 @@ body {
     width: 30px;
   }
 }
+
+/* ============================================
+   THEME — 6 套主题随风格切换
+   通过 body[data-theme="xxx"] 切换 CSS 变量
+   ============================================ */
+
+body {
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+body[data-theme="energetic"] {
+  --bg-primary: #fff7f2;
+  --bg-secondary: #fce8da;
+  --accent: #E8734A;
+  --accent-light: #FBC9A8;
+  --accent-dark: #C8542A;
+  --border: #f0d4c0;
+}
+
+body[data-theme="calm"] {
+  --bg-primary: #f5f8f3;
+  --bg-secondary: #e8f0e2;
+  --accent: #6B9E5E;
+  --accent-light: #C2D9B5;
+  --accent-dark: #4A7A3E;
+  --border: #d4e0cc;
+}
+
+body[data-theme="bold"] {
+  --bg-primary: #fdf3f2;
+  --bg-secondary: #f5dcd8;
+  --accent: #D44637;
+  --accent-light: #F2B5AC;
+  --accent-dark: #A52F22;
+  --border: #e8c5bf;
+}
+
+body[data-theme="elegant"] {
+  --bg-primary: #faf6f0;
+  --bg-secondary: #efe6d5;
+  --accent: #9C5836;
+  --accent-light: #D9B98F;
+  --accent-dark: #6B3D24;
+  --border: #ddcdb0;
+}
+
+body[data-theme="playful"] {
+  --bg-primary: #fdf5f8;
+  --bg-secondary: #f8dde7;
+  --accent: #E8799B;
+  --accent-light: #F7C4D4;
+  --accent-dark: #C4547A;
+  --border: #f0c8d8;
+}
+
+body[data-theme="mysterious"] {
+  --bg-primary: #f4f2f6;
+  --bg-secondary: #e2dde8;
+  --accent: #5B3A7A;
+  --accent-light: #B9A3D4;
+  --accent-dark: #3D2E50;
+  --border: #d4cbe0;
+}
+
+/* ============================================
+   IMAGE WATERFALL — 瀑布流参考图
+   ============================================ */
+
+.result-images {
+  margin-bottom: 28px;
+}
+
+.result-images h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.result-images-source {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-light);
+  padding: 2px 8px;
+  background: var(--bg-secondary);
+  border-radius: 50px;
+}
+
+.image-waterfall {
+  column-count: 3;
+  column-gap: 12px;
+}
+
+.image-waterfall-item {
+  break-inside: avoid;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.image-waterfall-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.image-waterfall-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.image-waterfall-credit {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 6px 10px;
+  font-size: 10px;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.image-waterfall-item:hover .image-waterfall-credit {
+  opacity: 1;
+}
+
+.image-waterfall-item-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.image-waterfall-item-placeholder .placeholder-style {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.image-loading-hint {
+  grid-column: 1 / -1;
+  padding: 48px 16px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.image-loading-hint::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 16px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .image-waterfall {
+    column-count: 2;
+  }
+}
