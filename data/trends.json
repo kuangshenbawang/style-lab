@@ -1,0 +1,84 @@
+{
+  "updated": "2026-07-30T19:25:02.663Z",
+  "source": "RSS (2 sources)",
+  "trends": [
+    {
+      "name": "Sport Shorts Are The Off-Duty Upgrade Ev…",
+      "emoji": "✨",
+      "desc": "Zoë Kravitz and Hailey Bieber have given the sport shorts their seal of approval, styled with blazers, boho blouses, or pumps. Consider this…",
+      "tags": [
+        "Sport",
+        "Shorts",
+        "Off"
+      ],
+      "bg": "linear-gradient(135deg, #f5f0eb, #e0d5c8)",
+      "hot": "TOP 1",
+      "link": "https://www.vogue.com/article/sport-shorts-outfit-ideas"
+    },
+    {
+      "name": "Now Public, Reformation Is Worth $886 Mi…",
+      "emoji": "✨",
+      "desc": "The brand, which is testing Wall Street’s appetite for fashion, raised $211 million in its IPO on Thursday. CEO Hali Borenstein shares what …",
+      "tags": [
+        "Public",
+        "Reformation",
+        "Worth"
+      ],
+      "bg": "linear-gradient(135deg, #2d3a2e, #4a6b50)",
+      "hot": "TOP 2",
+      "link": "https://www.vogue.com/article/now-public-reformation-is-worth-dollar886-million-whats-next"
+    },
+    {
+      "name": "Iconic Summer Looks from Fashion Muses T…",
+      "emoji": "✨",
+      "desc": "Need a bit of inspiration this summer? Look to these muses for inspiration.",
+      "tags": [
+        "Iconic",
+        "Looks",
+        "Fashion"
+      ],
+      "bg": "linear-gradient(135deg, #c4704b, #e8c4a0)",
+      "hot": "TOP 3",
+      "link": "https://www.vogue.com/article/summer-style-muses"
+    },
+    {
+      "name": "Trust Nicole Kidman To Make Couture Look…",
+      "emoji": "✨",
+      "desc": "Hand-in-hand with her “Lioness” co-stars, Nicole Kidman donned Maria Grazia Chiuri’s debut couture collection for Fendi—just weeks off the r…",
+      "tags": [
+        "Trust",
+        "Nicole",
+        "Kidman"
+      ],
+      "bg": "linear-gradient(135deg, #a8d8e8, #e0f0f5)",
+      "hot": "HOT",
+      "link": "https://www.vogue.com/article/nicole-kidman-fendi-couture-lioness-season-three-premiere"
+    },
+    {
+      "name": "14 Bridesmaid Dress Brands to Bookmark I…",
+      "emoji": "✨",
+      "desc": "As you plan your big day (and your bridal party), take a minute to consider what everyone will wear—these bridesmaid dress brands are anythi…",
+      "tags": [
+        "Bridesmaid",
+        "Dress",
+        "Brands"
+      ],
+      "bg": "linear-gradient(135deg, #1a1a2e, #5b6cb0)",
+      "hot": "HOT",
+      "link": "https://www.vogue.com/article/best-brands-for-bridesmaids-dresses"
+    },
+    {
+      "name": "How Tom Holland Gets His Curls So Good, …",
+      "emoji": "✨",
+      "desc": "Embracing the Spider-Man star’s natural hair texture has meant the actor could wear his ’do in a variety of ways—all while looking incredibl…",
+      "tags": [
+        "Tom",
+        "Holland",
+        "Gets"
+      ],
+      "bg": "linear-gradient(135deg, #3d5a40, #7bab6e)",
+      "hot": "NEW",
+      "link": "https://www.gq.com/story/tom-holland-curly-hair-spiderman"
+    }
+  ]
+}
