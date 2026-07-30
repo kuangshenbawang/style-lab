@@ -91,6 +91,46 @@
     winter: { name: '冬日冷调', colors: ['#1A1A1A', '#4A4A4A', '#8B8B8B', '#D4D4D4', '#C4704B'] }
   };
 
+  // 每个 archetype 的英文搜索词（供图片 API 搜索）
+  var SEARCH_QUERIES = {
+    'energetic|casual': 'athleisure street style outfit',
+    'energetic|date': 'sweet cool fashion outfit date',
+    'energetic|party': 'sparkle party outfit sequin',
+    'energetic|work': 'smart casual work outfit women',
+    'energetic|travel': 'travel outfit activewear adventure',
+    'energetic|street': 'streetwear oversized outfit sneakers',
+    'calm|casual': 'minimalist casual relaxed outfit',
+    'calm|date': 'romantic soft feminine outfit date',
+    'calm|party': 'elegant velvet party outfit',
+    'calm|work': 'smart casual chic work outfit',
+    'calm|travel': 'comfortable travel linen outfit',
+    'calm|street': 'minimal street style neutral outfit',
+    'bold|casual': 'bold statement outfit color block',
+    'bold|date': 'sexy edgy leather outfit date',
+    'bold|party': 'avant garde fashion party outfit',
+    'bold|work': 'power suit women strong work outfit',
+    'bold|travel': 'techwear utility outfit travel',
+    'bold|street': 'high street fashion designer outfit',
+    'elegant|casual': 'elegant casual chic outfit',
+    'elegant|date': 'french chic elegant outfit date',
+    'elegant|party': 'evening gown elegant party outfit',
+    'elegant|work': 'elegant business professional outfit',
+    'elegant|travel': 'elegant resort vacation outfit',
+    'elegant|street': 'quiet luxury street style outfit',
+    'playful|casual': 'cute colorful casual outfit young',
+    'playful|date': 'sweet cute date outfit feminine',
+    'playful|party': 'fun colorful party outfit bright',
+    'playful|work': 'playful work outfit colorful accessories',
+    'playful|travel': 'fun colorful travel vacation outfit',
+    'playful|street': 'y2k fashion outfit millennium street',
+    'mysterious|casual': 'all black dark casual outfit',
+    'mysterious|date': 'mysterious dark sexy outfit date',
+    'mysterious|party': 'gothic dark party outfit leather',
+    'mysterious|work': 'dark elegant work outfit cold',
+    'mysterious|travel': 'dark techwear travel outfit',
+    'mysterious|street': 'dark streetwear deconstructed outfit'
+  };
+
   function selectOption(category, value, button) {
     selections[category] = value;
     // Visual feedback
@@ -162,8 +202,104 @@
     }).join('');
     document.getElementById('outfit-list').innerHTML = outfitHtml;
 
+    // 主题切换：根据 mood 切换 CSS 变量
+    document.body.setAttribute('data-theme', selections.mood);
+
     // Show result
     document.getElementById('matcher-result').classList.remove('hidden');
+
+    // 加载穿搭参考图（瀑布流）
+    loadStyleImages(key, style.name);
+  }
+
+  /* ===== 图片瀑布流 ===== */
+
+  function loadStyleImages(archetypeKey, styleName) {
+    var cfg = window.STYLE_LAB_CONFIG || {};
+    var waterfall = document.getElementById('image-waterfall');
+    var sourceLabel = document.getElementById('result-images-source');
+    var query = SEARCH_QUERIES[archetypeKey] || 'fashion outfit style';
+    var count = cfg.imageCount || 6;
+    var proxy = cfg.imageProxy || '/api/images';
+    var source = cfg.imageSource || 'auto';
+
+    // 显示加载中
+    waterfall.innerHTML = '<div class="image-loading-hint">正在为你寻找穿搭灵感…</div>';
+    sourceLabel.textContent = '';
+
+    var url = proxy + '?q=' + encodeURIComponent(query) + '&count=' + count + '&source=' + source;
+
+    // 带超时的 fetch
+    var fetchPromise = fetch(url, { method: 'GET' });
+    var timeoutPromise = new Promise(function (_, reject) {
+      setTimeout(function () { reject(new Error('timeout')); }, cfg.imageTimeout || 8000);
+    });
+
+    Promise.race([fetchPromise, timeoutPromise])
+      .then(function (res) {
+        if (!res.ok) throw new Error('proxy error ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (data && data.images && data.images.length > 0) {
+          renderImageWaterfall(data.images);
+          sourceLabel.textContent = data.source || '';
+        } else {
+          renderImageFallback(styleName);
+        }
+      })
+      .catch(function () {
+        renderImageFallback(styleName);
+      });
+  }
+
+  function renderImageWaterfall(images) {
+    var waterfall = document.getElementById('image-waterfall');
+    var html = images.map(function (img) {
+      var src = img.url || img.urls && img.urls.regular || '';
+      var alt = img.alt || img.description || '穿搭参考';
+      var credit = img.credit || '';
+      var link = img.link || '';
+      if (!src) return '';
+      var inner = '<img src="' + escapeAttr(src) + '" alt="' + escapeAttr(alt) + '" loading="lazy" onerror="this.parentElement.style.display=\'none\'">';
+      if (credit) {
+        inner += '<div class="image-waterfall-credit">photo: ' + escapeHtml(credit) + '</div>';
+      }
+      if (link) {
+        return '<a class="image-waterfall-item" href="' + escapeAttr(link) + '" target="_blank" rel="noopener">' + inner + '</a>';
+      }
+      return '<div class="image-waterfall-item">' + inner + '</div>';
+    }).join('');
+    waterfall.innerHTML = html || '<div class="image-loading-hint">暂无参考图</div>';
+  }
+
+  function renderImageFallback(styleName) {
+    // 后端未部署时优雅降级：显示风格名 + 配色占位卡
+    var waterfall = document.getElementById('image-waterfall');
+    waterfall.innerHTML =
+      '<div class="image-waterfall-item">' +
+        '<div class="image-waterfall-item-placeholder">' +
+          '<div class="placeholder-style">' + escapeHtml(styleName) + '</div>' +
+          '<div>穿搭参考图功能待激活</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="image-waterfall-item">' +
+        '<div class="image-waterfall-item-placeholder">' +
+          '<div class="placeholder-style">STYLE LAB</div>' +
+          '<div>部署图片代理后<br>自动展示真实穿搭参考</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="image-waterfall-item">' +
+        '<div class="image-waterfall-item-placeholder">' +
+          '<div class="placeholder-style">&#10024;</div>' +
+          '<div>敬请期待</div>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('result-images-source').textContent = '';
+  }
+
+  function escapeAttr(str) {
+    return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;');
   }
 
   function restartMatcher() {
@@ -498,9 +634,10 @@
 
   document.getElementById('btn-generate-caption').addEventListener('click', generateCaption);
 
-  /* ===== SECTION 4: TREND BOARD ===== */
+  /* ===== SECTION 4: TREND BOARD（动态读取 data/trends.json）===== */
 
-  var TRENDS = [
+  // Fallback 趋势数据（JSON 加载失败时用）
+  var FALLBACK_TRENDS = [
     {
       name: 'Quiet Luxury',
       emoji: '\uD83D\uDC51',
@@ -551,23 +688,45 @@
     }
   ];
 
-  var trendsGrid = document.getElementById('trends-grid');
-  TRENDS.forEach(function (t) {
-    var card = document.createElement('div');
-    card.className = 'trend-card';
-    card.innerHTML =
-      '<div class="trend-visual" style="background:' + t.bg + '">' +
-      '<span class="trend-hot">' + t.hot + '</span>' +
-      '<span class="trend-emoji">' + t.emoji + '</span>' +
-      '</div>' +
-      '<div class="trend-body">' +
-      '<h3 class="trend-name">' + t.name + '</h3>' +
-      '<p class="trend-desc">' + t.desc + '</p>' +
-      '<div class="trend-tags">' +
-      t.tags.map(function (tag) { return '<span class="trend-tag">' + tag + '</span>'; }).join('') +
-      '</div>' +
-      '</div>';
-    trendsGrid.appendChild(card);
-  });
+  function renderTrends(trends) {
+    var trendsGrid = document.getElementById('trends-grid');
+    trendsGrid.innerHTML = '';
+    trends.forEach(function (t) {
+      var card = document.createElement('div');
+      card.className = 'trend-card';
+      card.innerHTML =
+        '<div class="trend-visual" style="background:' + (t.bg || 'var(--accent-light)') + '">' +
+        '<span class="trend-hot">' + escapeHtml(t.hot || '') + '</span>' +
+        '<span class="trend-emoji">' + (t.emoji || '\u2728') + '</span>' +
+        '</div>' +
+        '<div class="trend-body">' +
+        '<h3 class="trend-name">' + escapeHtml(t.name) + '</h3>' +
+        '<p class="trend-desc">' + escapeHtml(t.desc) + '</p>' +
+        '<div class="trend-tags">' +
+        (t.tags || []).map(function (tag) { return '<span class="trend-tag">' + escapeHtml(tag) + '</span>'; }).join('') +
+        '</div>' +
+        '</div>';
+      trendsGrid.appendChild(card);
+    });
+  }
+
+  function loadTrends() {
+    var cfg = window.STYLE_LAB_CONFIG || {};
+    var url = cfg.trendsUrl || './data/trends.json';
+    fetch(url, { method: 'GET' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('trends fetch error');
+        return res.json();
+      })
+      .then(function (data) {
+        var trends = (data && data.trends && data.trends.length > 0) ? data.trends : FALLBACK_TRENDS;
+        renderTrends(trends);
+      })
+      .catch(function () {
+        renderTrends(FALLBACK_TRENDS);
+      });
+  }
+
+  loadTrends();
 
 })();
